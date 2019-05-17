@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app='flask'>
+<head>
+	<title>Simple Flask Login System</title>
+</head>
+<body>
+	<div ng-controller='controller'>
+	<form>
+		
+		<label class='loginMain'>E-mail : <input placeholder="Enter your email here"  type='email' ng-model='login.email' autofocus="on" name='email' required /></label>
+		<br />
+		<label class='loginMain'>Password : <input placeholder="Enter your password here" type='password' ng-model='login.password' name='password' required />
+		<br /></label>
+		<button class='loginMainButton' ng-click='logIn()'><span>Log In<span></button> 
+		<br />
+	</form>
+	</div>
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+<script type="text/javascript">
+(function(){
+
+	angular.module('flask', []).controller('controller', function($scope, $http){
+
+
+		$scope.logIn = function(){
+
+				if($scope.login.email && $scope.login.password){
+					var send_data = JSON.stringify({
+						email:$scope.login.email,
+						password:$scope.login.password
+					});
+
+					$http.post('/login', send_data).success(function(response){
+						console.log(response)
+				})
+				
+			};//end of logIn function
+
+		}
+
+
+	})
+
+})();
+
+
+</script>
+</html>
